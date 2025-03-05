@@ -16,7 +16,8 @@ public class ProfessorService {
     @Autowired
     private ProfessorRepository professorRepository;
 
-    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/src/main/resources/static/upload/professores";
+    // Caminho absoluto para o diretório de uploads dentro do Tomcat
+    private static final String UPLOAD_DIR = System.getProperty("catalina.base") + "/webapps/upload/professores";
 
     public void salvarProfessor(Professor professor, MultipartFile imagemProfessor) throws IOException {
         File uploadDir = new File(UPLOAD_DIR);

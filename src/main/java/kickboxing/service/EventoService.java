@@ -16,7 +16,8 @@ public class EventoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/src/main/resources/static/upload/eventos";
+    // Caminho absoluto para o diretório de uploads dentro do Tomcat
+    private static final String UPLOAD_DIR = System.getProperty("catalina.base") + "/webapps/upload/eventos";
 
     public void salvarEvento(Evento evento, MultipartFile imagemEvento) throws IOException {
         File uploadDir = new File(UPLOAD_DIR);

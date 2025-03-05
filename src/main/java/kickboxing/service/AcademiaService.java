@@ -16,7 +16,8 @@ public class AcademiaService {
     @Autowired
     private AcademiaRepository academiaRepository;
 
-    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/src/main/resources/static/upload/academias";
+    // Caminho absoluto para o diretório de uploads dentro do Tomcat
+    private static final String UPLOAD_DIR = System.getProperty("catalina.base") + "/webapps/upload/academias";
 
     public void salvarAcademia(Academia academia, MultipartFile imagemAcademia) throws IOException {
         File uploadDir = new File(UPLOAD_DIR);

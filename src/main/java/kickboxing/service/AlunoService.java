@@ -16,7 +16,8 @@ public class AlunoService {
     @Autowired
     private AlunoRepository alunoRepository;
 
-    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/src/main/resources/static/upload/alunos";
+    // Caminho absoluto para o diretório de uploads dentro do Tomcat
+    private static final String UPLOAD_DIR = System.getProperty("catalina.base") + "/webapps/upload/alunos";
 
     public void salvarAluno(Aluno aluno, MultipartFile imagemAluno) throws IOException {
         File uploadDir = new File(UPLOAD_DIR);

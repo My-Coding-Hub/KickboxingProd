@@ -118,85 +118,91 @@ window.onclick = function (event) {
 };
 
 function filtrarEventos(mes) {
-    fetch('/filtrar?mes=' + mes)
+    const contextPath = window.location.pathname.split('/')[1];
+
+    fetch(`/${contextPath}/filtrar?mes=${mes}`)
         .then(response => response.json())
         .then(eventos => {
             let containerEventos = document.querySelector(".conteiner-eventos ul");
             containerEventos.innerHTML = "";
 
-            eventos.forEach(evento => {
-                let eventoItem = document.createElement("li");
+            if (eventos.length > 0) {
+                eventos.forEach(evento => {
+                    let eventoItem = document.createElement("li");
 
-                let img = document.createElement("img");
-                img.src = evento.imagemEvento;
-                img.alt = "Imagem do evento";
-                img.width = 200;
-                img.onclick = () => openModalImagemEvento(img.src);
+                    let img = document.createElement("img");
+                    img.src = evento.imagemEvento;
+                    img.alt = "Imagem do evento";
+                    img.width = 200;
+                    img.onclick = () => openModalImagemEvento(img.src);
 
-                let nomeSpan = document.createElement("span");
-                nomeSpan.textContent = evento.nomeEvento;
-                nomeSpan.classList.add("span-nomeEvento");
+                    let nomeSpan = document.createElement("span");
+                    nomeSpan.textContent = evento.nomeEvento;
+                    nomeSpan.classList.add("span-nomeEvento");
 
-                let descSpan = document.createElement("span");
-                descSpan.textContent = evento.descricaoEvento;
-                descSpan.classList.add("span-descricaoEvento");
+                    let descSpan = document.createElement("span");
+                    descSpan.textContent = evento.descricaoEvento;
+                    descSpan.classList.add("span-descricaoEvento");
 
-                let dataDiv = document.createElement("div");
-                dataDiv.classList.add("data-evento");
-                dataDiv.innerHTML = `<span>Data:</span> <span>${evento.dataEvento}</span>`;
+                    let dataDiv = document.createElement("div");
+                    dataDiv.classList.add("data-evento");
+                    dataDiv.innerHTML = `<span>Data:</span> <span>${evento.dataEvento}</span>`;
 
-                let horaDiv = document.createElement("div");
-                horaDiv.classList.add("hora-evento");
-                horaDiv.innerHTML = `<span>Hora:</span> <span>${evento.horaEvento}</span>`;
+                    let horaDiv = document.createElement("div");
+                    horaDiv.classList.add("hora-evento");
+                    horaDiv.innerHTML = `<span>Hora:</span> <span>${evento.horaEvento}</span>`;
 
-                let formExcluir = document.createElement("form");
-                formExcluir.id = `formExcluir_${evento.idEvento}`;
-                formExcluir.action = `/eventos/${evento.idEvento}`;
-                formExcluir.method = "post";
+                    let formExcluir = document.createElement("form");
+                    formExcluir.id = `formExcluir_${evento.idEvento}`;
+                    formExcluir.action = `/${contextPath}/eventos/${evento.idEvento}`;
+                    formExcluir.method = "post";
 
-                let inputHidden = document.createElement("input");
-                inputHidden.type = "hidden";
-                inputHidden.name = "_method";
-                inputHidden.value = "DELETE";
+                    let inputHidden = document.createElement("input");
+                    inputHidden.type = "hidden";
+                    inputHidden.name = "_method";
+                    inputHidden.value = "DELETE";
 
-                let divExcluir = document.createElement("div");
-                let btnExcluir = document.createElement("button");
-                btnExcluir.type = "button";
-                btnExcluir.classList.add("icon-lixo-eventos");
-                btnExcluir.setAttribute("data-id", evento.idEvento);
-                btnExcluir.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+                    let divExcluir = document.createElement("div");
+                    let btnExcluir = document.createElement("button");
+                    btnExcluir.type = "button";
+                    btnExcluir.classList.add("icon-lixo-eventos");
+                    btnExcluir.setAttribute("data-id", evento.idEvento);
+                    btnExcluir.innerHTML = `<i class="fa-solid fa-trash"></i>`;
 
-                btnExcluir.addEventListener("click", function () {
-                    Swal.fire({
-                        title: "Tem certeza?",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#d33",
-                        cancelButtonColor: "#3085d6",
-                        confirmButtonText: "Sim, excluir!",
-                        cancelButtonText: "Cancelar"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            document.getElementById(`formExcluir_${evento.idEvento}`).submit();
-                        }
+                    btnExcluir.addEventListener("click", function () {
+                        Swal.fire({
+                            title: "Tem certeza?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#d33",
+                            cancelButtonColor: "#3085d6",
+                            confirmButtonText: "Sim, excluir!",
+                            cancelButtonText: "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                document.getElementById(`formExcluir_${evento.idEvento}`).submit();
+                            }
+                        });
                     });
+
+                    divExcluir.appendChild(btnExcluir);
+                    formExcluir.appendChild(inputHidden);
+                    formExcluir.appendChild(divExcluir);
+
+                    eventoItem.appendChild(img);
+                    eventoItem.appendChild(nomeSpan);
+                    eventoItem.appendChild(descSpan);
+                    eventoItem.appendChild(dataDiv);
+                    eventoItem.appendChild(horaDiv);
+                    eventoItem.appendChild(formExcluir);
+
+                    containerEventos.appendChild(eventoItem);
                 });
-
-                divExcluir.appendChild(btnExcluir);
-                formExcluir.appendChild(inputHidden);
-                formExcluir.appendChild(divExcluir);
-
-                eventoItem.appendChild(img);
-                eventoItem.appendChild(nomeSpan);
-                eventoItem.appendChild(descSpan);
-                eventoItem.appendChild(dataDiv);
-                eventoItem.appendChild(horaDiv);
-                eventoItem.appendChild(formExcluir);
-
-                containerEventos.appendChild(eventoItem);
-            });
+            } else {
+                containerEventos.innerHTML = "<li>Não há eventos para este mês.</li>";
+            }
         })
-    .catch(error => console.error("Erro ao buscar eventos:", error));
+        .catch(error => console.error("Erro ao buscar eventos:", error));
 }
 
 function openModalImagemAcademia(imgSrc) {
@@ -221,8 +227,9 @@ window.onclick = function (event) {
 
 function pesquisarAcademias() {
     const cidade = document.getElementById('select-cidade').value;
+    const contextPath = window.location.pathname.split('/')[1];
 
-    fetch('/pesquisarAcademias?opcoes-cidades=' + cidade)
+    fetch(`/${contextPath}/pesquisarAcademias?opcoes-cidades=${cidade}`)
         .then(response => response.json())
         .then(academias => {
             let containerAcademias = document.querySelector(".conteiner-academias ul");
@@ -267,7 +274,7 @@ function pesquisarAcademias() {
 
                 let formExcluir = document.createElement("form");
                 formExcluir.id = `formExcluir_${academia.idAcademia}`;
-                formExcluir.action = `/academias/${academia.idAcademia}`;
+                formExcluir.action = `/${contextPath}/academias/${academia.idAcademia}`;
                 formExcluir.method = "post";
 
                 let inputHidden = document.createElement("input");
@@ -345,10 +352,8 @@ window.onclick = function(event) {
 
 function pesquisarProfessores() {
     const cidade = document.getElementById('select-cidade-professores').value;
-
-    event.preventDefault();
-
-    fetch('/pesquisarProfessores?opcoes-cidades-professores=' + cidade)
+    const contextPath = window.location.pathname.split('/')[1];
+    fetch(`/${contextPath}/pesquisarProfessores?opcoes-cidades-professores=${cidade}`)
         .then(response => response.json())
         .then(professores => {
             let tbody = document.querySelector(".conteiner-professores tbody");
@@ -398,7 +403,7 @@ function pesquisarProfessores() {
                 let tdExcluir = document.createElement("td");
                 let formExcluir = document.createElement("form");
                 formExcluir.id = `formExcluir_${professor.idProfessor}`;
-                formExcluir.action = `/professores/${professor.idProfessor}`;
+                formExcluir.action = `/${contextPath}/professores/${professor.idProfessor}`;
                 formExcluir.method = "post";
 
                 let inputHidden = document.createElement("input");
@@ -482,10 +487,8 @@ window.onclick = function(event) {
 
 function pesquisarAlunos() {
     const cidade = document.getElementById('select-cidade-alunos').value;
-
-    event.preventDefault();
-
-    fetch('/pesquisarAlunos?opcoes-cidades-alunos=' + cidade)
+    const contextPath = window.location.pathname.split('/')[1];
+    fetch(`/${contextPath}/pesquisarAlunos?opcoes-cidades-alunos=${cidade}`)
         .then(response => response.json())
         .then(alunos => {
             let tbody = document.querySelector(".conteiner-alunos tbody");
@@ -539,7 +542,7 @@ function pesquisarAlunos() {
                 let tdExcluir = document.createElement("td");
                 let formExcluir = document.createElement("form");
                 formExcluir.id = `formExcluir_${aluno.idAluno}`;
-                formExcluir.action = `/alunos/${aluno.idAluno}`;
+                formExcluir.action = `/${contextPath}/alunos/${aluno.idAluno}`;
                 formExcluir.method = "post";
 
                 let inputHidden = document.createElement("input");

@@ -61,7 +61,7 @@ public class AdminController {
 
             String token = adminService.gerarTokenRecuperacao(email);
 
-            String urlRecuperacao = "http://localhost:8080/recuperarSenha?token=" + token;
+            String urlRecuperacao = "https://efiyts.conteige.cloud/Kickboxing/recuperarSenha?token=" + token;
 
             adminService.enviarEmailRecuperacao(email, "Clique no link para recuperar sua senha: " + urlRecuperacao);
 
