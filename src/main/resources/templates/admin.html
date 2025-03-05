@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- FAVICON -->
-    <link rel="icon" href="/images/favicon.png"/>
+    <link rel="icon" th:href="@{/images/icon.png}"/>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,11 +34,11 @@
     <section>
         <!--LOGIN ADMINSTRATIVO-->
         <div id="loginAdmin">
-            <form action="/entrar" method="post">
+            <form th:action="@{/entrar}" method="post">
                 <div class="conteiner-login">
                     <h2>Login do Administrador</h2>
 
-                    <img src="/static/images/logo.png" alt="Logo da F.G.K.B" class="img-login-logo">
+                    <img th:src="@{/images/logo-kickboxing.png}" alt="Logo da F.G.K.B" class="img-login-logo">
 
                     <div class="div-login-inputs">
                         <input type="email" id="email-login" name="email" placeholder="E-mail" 
@@ -65,7 +65,7 @@
                 <span class="close-criar-conta" onclick="closeModalCriarConta()">&times;</span>
                 <h2>Criar Conta</h2>
 
-                <form id="criarContaForm" action="/criarConta" method="post">
+                <form id="criarContaForm" th:action="@{/criarConta}" method="post">
                     <div class="conteiner-criar-conta-inputs">
                         <div class="div-criar-conta-inputs">
                             <input type="text" id="nome-cadastro" name="nome" placeholder="Nome"
@@ -109,7 +109,7 @@
                 <span class="close-recuperar-conta" onclick="closeModalRecuperarConta()">&times;</span>
                 <h2>Recuperar Senha</h2>
 
-                <form id="recuperarContaForm" action="/recuperarConta" method="post">
+                <form id="recuperarContaForm" th:action="@{/recuperarConta}" method="post">
                     <div class="conteiner-recuperar-conta-inputs">
                         <input type="email" id="email-recuperar" name="email" placeholder="E-mail"
                         pattern="^(?!.*\.\.)([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})$" 
@@ -149,6 +149,6 @@
         </script>
     </div>
 
-    <script src="/static/js/javascript.js"></script>
+    <script th:src="@{/js/javascript.js}"></script>
 </body>
 </html>

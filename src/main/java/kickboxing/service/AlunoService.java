@@ -1,7 +1,6 @@
 package kickboxing.service;
 
 import kickboxing.model.Aluno;
-import kickboxing.model.Professor;
 import kickboxing.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

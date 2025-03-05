@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- FAVICON -->
-    <link rel="icon" href="/images/favicon.png"/>
+    <link rel="icon" th:href="@{/images/icon.png}"/>
 
     <!--  VERIFICAÇÃO DE PROPRIEDADE DO SITE NO GOOGLE SEARCH CONSOLE -->
 
@@ -80,7 +80,7 @@
     </div>
     <nav class="conteirner-nav-publica">
         <div>
-            <img src="/static/images/logo.png" alt="Logo da F.G.K.B" class="img-nav-logo">
+            <img th:src="@{/images/logo-kickboxing.png}" alt="Logo da F.G.K.B" class="img-nav-logo">
         </div>
 
         <div>
@@ -103,16 +103,20 @@
                 <li>
                     <a >Ranking</a>
                 </li>
-                <li>
-                    <a >Patrocinadores</a>
-                </li>
             </div>
         </div>
     </nav>
     <!--FIM NAV-->
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
     <div id="teste" class="sessao-puclica">
-        <form action="/admin" method="post">
+        <form th:action="@{/admin}" method="post">
             <h2>SESSÃO PÚBLICA</h2>
             <h3>Início - Apresentação em desenvolvimento...</h3>
 
@@ -127,14 +131,20 @@
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
     <!--INICIO RODAPÉ -->
     <footer>
         <div class="div-footer-logo">
-            <img src="/static/images/logo.png" alt="Logo da F.G.K.B" class="img-footer-logo">
+            <img th:src="@{/images/logo-kickboxing.png}" alt="Logo da F.G.K.B" class="img-footer-logo">
 
             <a href="https://mycodinghub.tech/" target="_blank">
-                <img src="/static/images/logo-mycoding.png" alt="Logo da My Coding" class="img-footer-logo-mycoding">
+                <img th:src="@{/images/logo-mycoding.png}" alt="Logo da My Coding" class="img-footer-logo-mycoding">
             </a>
         </div>
 
@@ -168,6 +178,6 @@
         </script>
     </div>
 
-    <script src="/static/js/javascript.js"></script>
+    <script th:src="@{/js/javascript.js}"></script>
 </body>
 </html>

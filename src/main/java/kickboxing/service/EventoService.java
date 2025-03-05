@@ -1,7 +1,6 @@
 package kickboxing.service;
 
 import kickboxing.model.Evento;
-import kickboxing.model.Patrocinador;
 import kickboxing.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

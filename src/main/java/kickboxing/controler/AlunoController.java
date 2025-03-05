@@ -1,7 +1,6 @@
 package kickboxing.controler;
 
 import kickboxing.model.Aluno;
-import kickboxing.model.Professor;
 import kickboxing.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

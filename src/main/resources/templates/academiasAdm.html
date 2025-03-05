@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- FAVICON -->
-    <link href="/images/favicon.png" rel="icon"/>
+    <link rel="icon" th:href="@{/images/icon.png}"/>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -38,7 +38,7 @@
     </div>
     <nav class="conteirner-nav-administracao">
         <div>
-            <img src="/static/images/logo.png" alt="Logo da F.G.K.B" class="img-nav-logo">
+            <img th:src="@{/images/logo-kickboxing.png}" alt="Logo da F.G.K.B" class="img-nav-logo">
         </div>
 
         <div>
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div>
-            <form action="/logout" method="post">
+            <form th:action="@{/logout}" method="post">
                 <button type="submit" class="ant-input custom-btn-sair">Sair</button>
             </form>
         </div>
@@ -78,7 +78,7 @@
     <section>
         <!--CADASTRAR ACADEMIAS-->
         <div id="cadastrarAcademia">
-            <form action="/criarAcademia" method="post" enctype="multipart/form-data">
+            <form th:action="@{/criarAcademia}" method="post" enctype="multipart/form-data">
                 <div class="cadastrar-academia-h2">
                     <h2>CADASTRAR ACADEMIA</h2>
                 </div>
@@ -121,7 +121,7 @@
         <hr class="separator">
 
         <!-- REGISTROS ACADEMIAS -->
-        <form action="/pesquisarAcademias" method="get">
+        <form th:action="@{/pesquisarAcademias}" method="get">
             <div class="conteiner-pesquisar">
                 <select class="ant-input" name="opcoes-cidades" id="select-cidade">
                     <option value="">Selecionar Cidade</option>
@@ -135,7 +135,8 @@
         <div class="conteiner-academias">
             <ul>
                 <li th:each="academia : ${academias}">
-                    <img th:src="${academia.imagemAcademia}" alt="Imagem da academia" width="200"
+
+                    <img th:src="@{${academia.imagemAcademia}}" alt="Imagem da academia" width="200"
                          onclick="openModalImagemAcademia(this.src)">
 
                     <div class="div-info-academias">
@@ -185,10 +186,10 @@
     <footer>
         <div class="div-footer-logo">
 
-            <img src="/static/images/logo.png" alt="Logo da F.G.K.B" class="img-footer-logo">
+            <img th:src="@{/images/logo-kickboxing.png}" alt="Logo da F.G.K.B" class="img-footer-logo">
 
             <a href="https://mycodinghub.tech/" target="_blank">
-                <img src="/static/images/logo-mycoding.png" alt="Logo da My Coding" class="img-footer-logo-mycoding">
+                <img th:src="@{/images/logo-mycoding.png}" alt="Logo da My Coding" class="img-footer-logo-mycoding">
             </a>  
         </div> 
 
@@ -227,7 +228,9 @@
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll(".icon-lixo-eventos").forEach(button => {
                 button.addEventListener("click", function () {
+
                     let academiaId = this.getAttribute("data-id");
+
                     Swal.fire({
                         title: "Tem certeza?",
                         icon: "warning",
@@ -236,7 +239,9 @@
                         cancelButtonColor: "#3085d6",
                         confirmButtonText: "Sim, excluir!",
                         cancelButtonText: "Cancelar"
+
                     }).then((result) => {
+
                         if (result.isConfirmed) {
                             document.getElementById("formExcluir_" + academiaId).submit();
                         }
@@ -247,6 +252,6 @@
     </script>
     <!-- Sweet Alert Componentes UI -->
 
-    <script src="/static/js/javascript.js"></script>
+    <script th:src="@{/js/javascript.js}"></script>
 </body>
 </html>

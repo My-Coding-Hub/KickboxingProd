@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- FAVICON -->
-    <link href="/images/favicon.png" rel="icon"/>
+    <link rel="icon" th:href="@{/images/icon.png}"/>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -38,7 +38,7 @@
     </div>
     <nav class="conteirner-nav-administracao">
         <div>
-            <img src="/static/images/logo.png" alt="Logo da F.G.K.B" class="img-nav-logo">
+            <img th:src="@{/images/logo-kickboxing.png}" alt="Logo da F.G.K.B" class="img-nav-logo">
         </div>
 
         <div>
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div>
-            <form action="/logout" method="post">
+            <form th:action="@{/logout}" method="post">
                 <button type="submit" class="ant-input custom-btn-sair">Sair</button>
             </form>
         </div>
@@ -78,7 +78,7 @@
     <section>
         <!--CADASTRAR PROFESSORES-->
         <div id="cadastrarProfessor">
-            <form action="/criarProfessor" method="post" enctype="multipart/form-data">
+            <form th:action="@{/criarProfessor}" method="post" enctype="multipart/form-data">
 
                 <div class="cadastrar-evento-h2">
                     <h2>CADASTRAR PROFESSOR</h2>
@@ -130,14 +130,13 @@
         <hr class="separator">
 
         <!-- REGISTROS PROFESSORES -->
-        <form action="/pesquisarProfessores" method="get">
+        <form th:action="@{/pesquisarProfessores}" method="get">
             <div class="conteiner-pesquisar-professores">
                 <select class="ant-input" name="opcoes-cidades-professores" id="select-cidade-professores">
                     <option value="">Selecionar Cidade</option>
                     <option th:each="cidade : ${cidades}" th:value="${cidade}" th:text="${cidade}"></option>
                 </select>
-                <button class="ant-input custom-btn-pesquisar-professores" type="submit"
-                        onclick="pesquisarProfessores()">Pesquisar</button>
+                <button class="ant-input custom-btn-pesquisar-professores" type="button" onclick="pesquisarProfessores()">Pesquisar</button>
             </div>
         </form>
 
@@ -158,7 +157,7 @@
                 <tbody>
                     <tr th:each="professor : ${professores}">
                         <td>
-                            <img th:src="${professor.imagemProfessor}" alt="Imagem do professor"
+                            <img th:src="@{${professor.imagemProfessor}}" alt="Imagem do professor"
                                  th:attr="data-id=${professor.idProfessor},
                                  data-nome=${professor.nomeProfessor},
                                  data-registro=${professor.registroProfessor},
@@ -208,7 +207,7 @@
                     </div>
 
                     <div class="professor-details">
-                        <form id="editarProfessorForm" action="/editarProfessor" method="post" enctype="multipart/form-data">
+                        <form id="editarProfessorForm" th:action="@{/editarProfessor}" method="post" enctype="multipart/form-data">
                             <input type="hidden" id="professorId" name="idProfessor"> <!-- Campo oculto para o ID -->
 
                             <p><strong>Nome:</strong> <input style="width: 271px;" type="text" id="professorNome" name="nomeProfessor" class="ant-input custom-input-editar" required></p>
@@ -253,10 +252,10 @@
     <footer>
         <div class="div-footer-logo">
 
-            <img src="/static/images/logo.png" alt="Logo da F.G.K.B" class="img-footer-logo">
+            <img th:src="@{/images/logo-kickboxing.png}" alt="Logo da F.G.K.B" class="img-footer-logo">
 
             <a href="https://mycodinghub.tech/" target="_blank">
-                <img src="/static/images/logo-mycoding.png" alt="Logo da My Coding" class="img-footer-logo-mycoding">
+                <img th:src="@{/images/logo-mycoding.png}" alt="Logo da My Coding" class="img-footer-logo-mycoding">
             </a>  
         </div> 
 
@@ -297,7 +296,8 @@
                  button.addEventListener("click", function (event) {
                      event.preventDefault(); // Evita o envio imediato
 
-                     let professorId = this.closest('form').getAttribute('action').split('/')[2];
+                    let professorId = this.getAttribute("data-id");
+
                      Swal.fire({
                          title: "Tem certeza?",
                          icon: "warning",
@@ -306,19 +306,19 @@
                          cancelButtonColor: "#3085d6",
                          confirmButtonText: "Sim, excluir!",
                          cancelButtonText: "Cancelar"
+
                      }).then((result) => {
+
                          if (result.isConfirmed) {
-                             // Submete o formulário de exclusão
                              document.getElementById('formExcluir_' + professorId).submit();
                          }
                      });
                  });
              });
         });
-
     </script>
     <!-- Sweet Alert Componentes UI -->
 
-    <script src="/static/js/javascript.js"></script>
+    <script th:src="@{/js/javascript.js}"></script>
 </body>
 </html>

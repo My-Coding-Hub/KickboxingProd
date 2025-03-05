@@ -5,8 +5,10 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- FAVICON -->
+    <link rel="icon" th:href="@{/images/icon.png}"/>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -28,9 +30,9 @@
 
 <body>
     <!-- RECUPERAR SENHA PAGINA -->
-    <form id="recuperarSenhaForm" action="/atualizarSenha" method="POST">
+    <form id="recuperarSenhaForm" th:action="@{/atualizarSenha}" method="POST">
         <div class="conteiner-recuperar-conta-pagina">
-            <img src="/static/images/logo.png" alt="Logo da F.G.K.B" class="img-login-logo">
+            <img th:src="@{/images/logo-kickboxing.png}" alt="Logo da F.G.K.B" class="img-login-logo">
 
             <h2>Sua nova senha</h2>
 
@@ -69,6 +71,6 @@
         </script>
     </div>
 
-    <script src="/static/js/javascript.js"></script>
+    <script th:src="@{/js/javascript.js}"></script>
 </body>
 </html>
